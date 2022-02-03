@@ -1,0 +1,72 @@
+{
+  "patientProfiles": [
+    {
+      "patientOf": 1,
+      "patientId": 1,
+      "patientProfile": {
+        "email": "p1@gmail.com",
+        "password": "123",
+        "fullName": "patient1",
+        "phone": "343543535355",
+        "diagnosis": "Nothing for now",
+        "prescribedMedication": "NA",
+        "address": "NA",
+        "city": "Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "pincode": "110056"
+      }
+    },
+    {
+        "patientOf": 1,
+        "patientId": 2,
+        "patientProfile": {
+          "email": "p2@gmail.com",
+          "password": "123",
+          "fullName": "patient2",
+          "phone": "343543535355",
+          "diagnosis": "Nothing for now",
+          "prescribedMedication": "NA",
+          "address": "NA",
+          "city": "Delhi",
+          "state": "Delhi",
+          "country": "India",
+          "pincode": "110056"
+        }
+      },
+      {
+        "patientOf": 1,
+        "patientId": 3,
+        "patientProfile": {
+          "email": "p3@gmail.com",
+          "password": "123",
+          "fullName": "patient3",
+          "phone": "343543535355",
+          "diagnosis": "Nothing for now",
+          "prescribedMedication": "NA",
+          "address": "NA",
+          "city": "Delhi",
+          "state": "Delhi",
+          "country": "India",
+          "pincode": "110056"
+        }
+      },
+      {
+        "patientOf": 1,
+        "patientId": 4,
+        "patientProfile": {
+          "email": "p4@gmail.com",
+          "password": "123",
+          "fullName": "patient4",
+          "phone": "343543535355",
+          "diagnosis": "Nothing for now",
+          "prescribedMedication": "NA",
+          "address": "NA",
+          "city": "Delhi",
+          "state": "Delhi",
+          "country": "India",
+          "pincode": "110056"
+        }
+      }
+  ]
+}

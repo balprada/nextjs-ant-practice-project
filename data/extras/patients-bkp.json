@@ -1,0 +1,8 @@
+{
+  "patients": [
+    { "id": 1, "emailId": "p1@gmail.com", "password": "123" },
+    { "id": 2, "emailId": "p2@gmail.com", "password": "123" },
+    { "id": 3, "emailId": "p3@gmail.com", "password": "123" },
+    { "id": 4, "emailId": "p4@gmail.com", "password": "123" }
+  ]
+}

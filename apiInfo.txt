@@ -1,0 +1,106 @@
+1. login:
+    req: {
+        userEmail: string,
+        userPassword: string
+    }
+
+*if role = "D"
+    # Success response 
+    res: {
+        patientList: [] // Array of patients
+        userInfo: {
+            id: string,
+            role: string,
+        }
+    }
+
+    # Failure Response 
+    res: {
+        err: string
+    }
+
+*if role = "P"
+    # Success response 
+    res: {
+        patientProfile: {} // object of patient-profile
+        userInfo: {
+            id: string,
+            role: string,
+        }
+    }
+
+    # Failure Response 
+    res: {
+        err: string
+    }
+
+2. add patient
+    req: {
+        patientOf: string,
+        patientId: string, // Dummy Id value
+        patientProfile: {}  // object with profile fields: fullName, email, password etc.
+    }
+
+    # Success Response
+        res: {
+            message: string,
+            patientId: string
+        }
+
+    # Failure Response
+        res: {
+            err: string
+        }
+
+3. update patient
+    req: {
+        patientOf: string,
+        patientId: string, 
+        patientProfile: {}  // object with profile fields: fullName, email, password etc.
+    }
+
+    # Success Response
+        res: {
+            message: string,
+            patientId: string
+        }
+
+    # Failure Response
+        res: {
+            err: string
+        }
+
+4. delete patient
+    res: {
+        patientOf: string,
+        patientId: string
+    }
+
+    # Success Response
+        res: {
+            message: string,
+            patientId: string
+        }
+
+    # Failure Response
+        res: {
+            err: string
+        }
+
+5. Patient: change password
+    req: {
+        patientOf: string,
+        patientId: string,
+        newPassword: string
+    }
+
+    # Success Response
+        res: {
+            message: string,
+            patientId: string
+        }
+
+    # Failure Response
+        res: {
+            err: string
+        }

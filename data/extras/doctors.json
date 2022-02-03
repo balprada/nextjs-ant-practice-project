@@ -1,0 +1,9 @@
+{
+    "doctors": [
+        {"id": 1, "emailId": "doctor1@gmail.com", "password": "123"},
+        {"id": 2, "emailId": "doctor2@gmail.com", "password": "123"},
+        {"id": 3, "emailId": "doctor3@gmail.com", "password": "123"},
+        {"id": 4, "emailId": "doctor4@gmail.com", "password": "123"},
+        {"id": 5, "emailId": "doctor5@gmail.com", "password": "123"}
+    ]
+}
