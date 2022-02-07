@@ -19,3 +19,18 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.padding-left-right{
+  padding-left: 0.3em; 
+  padding-right: 0.3em;
+}
+
+.padding-right{
+  /* padding-left: 0.3em;  */
+  padding-right: 1em;
+}
+
+.padding-top-bottom {
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+}

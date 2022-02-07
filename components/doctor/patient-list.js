@@ -7,6 +7,7 @@ import UpdatePatientForm from "./update-patient-form";
 import { List, Avatar, Button } from "antd";
 import Link from "next/link";
 import PatientSearch from "./patient-search";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 function PatientList() {
   const router = useRouter();
@@ -100,8 +101,8 @@ function PatientList() {
 
   renderedHtml === "" &&
     (renderedHtml = (
-      <div>
-        <PatientSearch></PatientSearch>
+      <section>
+        <PatientSearch style={{ width: "100%" }}></PatientSearch>
         <List
           style={{ padding: "0.5em" }}
           itemLayout="horizontal"
@@ -124,21 +125,23 @@ function PatientList() {
                     </Link>
                     <Button
                       size="small"
-                      style={{ marginLeft: "1.2em" }}
+                      style={{ marginLeft: "0.5em", marginRight:"0.5em"}}
                       onClick={() => {
                         handleEditPatientClick(patient.patientId);
                       }}
-                    >
-                      Edit
-                    </Button>
+                      icon={<EditOutlined />}
+                      shape="circle"
+                      
+                    ></Button>
                     <Button
+                      style={{ marginLeft: "0.5em", marginRight:"0.5em"}}
                       size="small"
                       onClick={() => {
                         handleDeletePatientClick(patient.patientId);
                       }}
-                    >
-                      Delete
-                    </Button>
+                      icon={<DeleteOutlined />}
+                      shape="circle"
+                    ></Button>
                   </div>
                 }
                 description={`City: ${patient.patientProfile.city}, Email: ${patient.patientProfile.email}`}
@@ -146,54 +149,14 @@ function PatientList() {
             </List.Item>
           )}
         />
-      </div>
-      // <div>
-      //   <div>
-      //     <div>
-      //       <button onClick={handleAddPatientClick}>Add Patient</button>
-      //     </div>
-      //   </div>
-      //   <div>
-      //     <ul>
-      //       {filteredPatientList.map((patient) => {
-      //         return (
-      //           <li key={patient.patientId}>
-      //             <span>{patient.patientId}</span>
-      //             <h1>
-      //               {(
-      //                 patient.patientProfile.fullName.firstName +
-      //                 " " +
-      //                 (patient.patientProfile.fullName.lastName || "")
-      //               ).trim()}
-      //             </h1>
-
-      //             <button
-      //               onClick={() => {
-      //                 handleViewPatientClick(patient.patientId);
-      //               }}
-      //             >
-      //               View
-      //             </button>
-      //             <button
-      //               onClick={() => {
-      //                 handleDeletePatientClick(patient.patientId);
-      //               }}
-      //             >
-      //               Delete
-      //             </button>
-      //             <button
-      //               onClick={() => {
-      //                 handleEditPatientClick(patient.patientId);
-      //               }}
-      //             >
-      //               Edit
-      //             </button>
-      //           </li>
-      //         );
-      //       })}
-      //     </ul>
-      //   </div>
-      // </div>
+        <Button
+          style={{ margin: "0.5em" }}
+          type="primary"
+          shape="circle"
+          icon={<PlusOutlined />}
+          onClick={handleAddPatientClick}
+        ></Button>
+      </section>
     ));
 
   return renderedHtml;

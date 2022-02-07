@@ -14,74 +14,35 @@ import {
   getErrObj,
   validatePatientProfile,
   isValid,
+  validationRulesMap,
+  isValidAntDForm,
 } from "../../lib/validate";
+import { Input, Form, Button } from "antd";
 
 function UpdatePatientForm(props) {
   const { patientOf, patientId, patientProfile } = props.patientProfToUpdate;
 
+  const [form] = Form.useForm();
+
+  const formValidationRules = validationRulesMap();
+
   const dispatch = useDispatch();
 
-  let [formObj, setFormObj] = useState({
-    inputObj: {
-      email: patientProfile.email,
-      password: patientProfile.password,
-      fullName: patientProfile.fullName,
-      phone: patientProfile.phone,
-      diagnosis: patientProfile.diagnosis,
-      prescribedMedication: patientProfile.prescribedMedication,
-      address: patientProfile.address || "",
-      city: patientProfile.city || "",
-      state: patientProfile.state || "",
-      country: patientProfile.country || "",
-      pincode: patientProfile.pincode,
-    },
-    errObj: {
-      email: "",
-      password: "",
-      fullName: "",
-      phone: "",
-      diagnosis: "",
-      prescribedMedication: "",
-      address: "",
-      city: "",
-      state: "",
-      country: "",
-      pincode: "",
-    },
-  });
-
   function handleSaveClick() {
-    const url = "/api/doctor/patient-update";
-
-    const profileInfo = {
-      email: formObj.inputObj.email,
-      password: formObj.inputObj.password,
-      fullName: formObj.inputObj.fullName,
-      phone: formObj.inputObj.phone,
-      diagnosis: formObj.inputObj.diagnosis,
-      prescribedMedication: formObj.inputObj.prescribedMedication,
-      address: formObj.inputObj.address,
-      city: formObj.inputObj.city,
-      state: formObj.inputObj.state,
-      country: formObj.inputObj.country,
-      pincode: formObj.inputObj.pincode,
-    };
-
-    validatePatientProfile(profileInfo);
-
-    if (isValid() === false) {
-      formObj.inputObj = profileInfo;
-
-      formObj.errObj = getErrObj();
-
-      console.log(formObj.errObj);
-
-      setFormObj({ ...formObj });
+    console.log(form.getFieldsError());
+    if(isValidAntDForm(form.getFieldsError()) === false) {
+      console.log('Having errors');
+      console.log(form.getFieldsError());
       return;
     }
+    const url = "/api/doctor/patient-update";
 
-    // break fullName into firstName and lastName
-    // profileInfo.fullName = setFNameLName(profileInfo.fullName);
+    const inputValues = form.getFieldsValue(true);
+    const profileInfo = {
+      ...inputValues,
+      // break fullName into firstName and lastName
+      fullName: setFNameLName(inputValues.fullName),
+    };
 
     const patientProfReqObj = {
       patientOf: patientOf,
@@ -124,181 +85,91 @@ function UpdatePatientForm(props) {
     });
   }
 
-  function handleOnChange(event) {
-    // console.log(event);
-    let fieldName = event.target.name;
-    // let inputValue = event.target.value;
-    let fieldValue = event.target.value;
-    // let fieldValue = inputValue;
-
-    switch (fieldName) {
-      case "email":
-        validateEmail(fieldValue);
-        formObj.errObj = getErrObj();
-        break;
-      case "password":
-        validatePassword(fieldValue);
-        formObj.errObj = getErrObj();
-        break;
-      case "fullName":
-        // fieldValue
-        validateFullName(fieldValue);
-        formObj.errObj = getErrObj();
-        fieldValue = setFNameLName(fieldValue);
-        break;
-      case "phone":
-        validatePhoneNo(fieldValue);
-        formObj.errObj = getErrObj();
-        break;
-      case "diagnosis":
-        validateDiagnosis(fieldValue);
-        formObj.errObj = getErrObj();
-        break;
-      case "prescribedMedication":
-        validatePresMedicine(fieldValue);
-        formObj.errObj = getErrObj();
-        break;
-      case "pincode":
-        validatePincode(fieldValue);
-        formObj.errObj = getErrObj();
-        break;
-
-      default: // do nothing
-    }
-
-    formObj.inputObj[fieldName] = fieldValue;
-
-    console.log(formObj.errObj);
-
-    setFormObj({ ...formObj });
-  }
-
   return (
     <section>
       <h1>Patient Profile Form</h1>
-      <div>
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input
-            type="email"
-            name="email"
-            required
-            value={formObj.inputObj.email}
-            onChange={handleOnChange}
-          />
-          <p>{formObj.errObj.email}</p>
-        </div>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input
-            type="password"
-            name="password"
-            required
-            value={formObj.inputObj.password}
-            onChange={handleOnChange}
-          />
-          <p>{formObj.errObj.password}</p>
-        </div>
-        <div>
-          <label htmlFor="fullName">Full Name: </label>
-          <input
-            type="text"
-            name="fullName"
-            required
-            value={(
-              (formObj.inputObj.fullName.firstName || "") +
-              " " +
-              (formObj.inputObj.fullName.lastName || "")
-            ).trim()}
-            onChange={handleOnChange}
-          />
-          <p>{formObj.errObj.fullName}</p>
-        </div>
-        <div>
-          <label htmlFor="phone">Phone: </label>
-          <input
-            type="text"
-            name="phone"
-            required
-            value={formObj.inputObj.phone}
-            onChange={handleOnChange}
-          />
-          <p>{formObj.errObj.phone}</p>
-        </div>
-        <div>
-          <label htmlFor="diagnosis">Diagnosis: </label>
-          <input
-            type="text"
-            name="diagnosis"
-            required
-            value={formObj.inputObj.diagnosis}
-            onChange={handleOnChange}
-          />
-          <p>{formObj.errObj.diagnosis}</p>
-        </div>
-        <div>
-          <label htmlFor="prescribedMedication">Prescribed Medication: </label>
-          <input
-            type="text"
-            name="prescribedMedication"
-            required
-            value={formObj.inputObj.prescribedMedication}
-            onChange={handleOnChange}
-          />
-          <p>{formObj.errObj.prescribedMedication}</p>
-        </div>
-        <div>
-          <label htmlFor="address">Address: </label>
-          <input
-            type="text"
-            name="address"
-            onChange={handleOnChange}
-            value={formObj.inputObj.address}
-          />
-        </div>
-        <div>
-          <label htmlFor="city">City: </label>
-          <input
-            type="text"
-            name="city"
-            onChange={handleOnChange}
-            value={formObj.inputObj.city}
-          />
-        </div>
-        <div>
-          <label htmlFor="state">State: </label>
-          <input
-            type="text"
-            name="state"
-            onChange={handleOnChange}
-            value={formObj.inputObj.state}
-          />
-        </div>
-        <div>
-          <label htmlFor="country">Country: </label>
-          <input
-            type="text"
-            name="country"
-            onChange={handleOnChange}
-            value={formObj.inputObj.country}
-          />
-        </div>
-        <div>
-          <label htmlFor="pincode">Pincode: </label>
-          <input
-            type="text"
-            name="pincode"
-            required
-            value={formObj.inputObj.pincode}
-            onChange={handleOnChange}
-          />
-          <p>{formObj.errObj.pincode}</p>
-        </div>
-        <div>
-          <button onClick={handleSaveClick}>Save</button>
-          <button onClick={handleCancelClick}>Cancel</button>
-        </div>
-      </div>
+      <Form
+        initialValues={{
+          ...patientProfile,
+          fullName:
+            patientProfile.fullName.firstName +
+            " " +
+            (patientProfile.fullName.lastName || ""),
+        }}
+        name="Update User Form"
+        form={form}
+      >
+        <Form.Item label="Email" name="email" rules={formValidationRules.email}>
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={formValidationRules.password}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item
+          label="Full Name"
+          name="fullName"
+          rules={formValidationRules.fullName}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Phone No"
+          name="phone"
+          rules={formValidationRules.phone}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Diagnosis"
+          name="diagnosis"
+          rules={formValidationRules.diagnosis}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Prescribed Medication"
+          name="prescribedMedication"
+          rules={formValidationRules.prescribedMedication}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item label="Address" name="address">
+          <Input />
+        </Form.Item>
+        <Form.Item label="City" name="city">
+          <Input />
+        </Form.Item>
+        <Form.Item label="State" name="state">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Country" name="country">
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Pincode"
+          name="pincode"
+          rules={formValidationRules.pincode}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            offset: 4,
+            span: 16,
+          }}
+        >
+          <Button type="primary" htmlType="submit" onClick={handleSaveClick}>
+            Submit
+          </Button>
+          <Button type="primary" onClick={handleCancelClick}>
+            Cancel
+          </Button>
+        </Form.Item>
+      </Form>
     </section>
   );
 }

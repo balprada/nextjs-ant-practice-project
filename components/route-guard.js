@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import store from "../store/store";
 import { loadStateFromSessionStorage } from "../store/persistent-storage";
 
-// import { userService } from "services";
-
 export { RouteGuard };
 
 function RouteGuard({ children }) {
@@ -57,6 +55,7 @@ function RouteGuard({ children }) {
           alert("you are trying to see patient page. Please login as patient");
           // alert and redirect to patient login
         } else if (path.startsWith("/doctor")) {
+            console.log(router);
           setAuthorized(true);
         } else {
           // doctor 404 page

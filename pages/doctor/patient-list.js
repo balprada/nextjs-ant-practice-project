@@ -5,6 +5,7 @@ import PatientSearch from "../../components/doctor/patient-search";
 import store from '../../store/store';
 import {handleUnauthUser} from '../../lib/util';
 
+
 function PatientListPage() {
 
   console.log('PatientListPage: loaded: state');

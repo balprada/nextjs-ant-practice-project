@@ -1,8 +1,14 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { filterPatientsByMedicines, filterPatientsByName, filterPatientsBySymptoms } from "../../store/slice";
+import {
+  filterPatientsByMedicines,
+  filterPatientsByName,
+  filterPatientsBySymptoms,
+} from "../../store/slice";
+import { Input, Space } from "antd";
 
 function PatientSearch() {
+  const { Search } = Input;
   const searchByNameRef = useRef();
   const searchBySymptomsRef = useRef();
   const searchByMedicineRef = useRef();
@@ -13,43 +19,49 @@ function PatientSearch() {
     let searchTerm = searchByNameRef.current.value;
 
     // if (searchTerm !== "") {
-      dispatch(filterPatientsByName({ searchTerm: searchTerm }));
+    dispatch(filterPatientsByName({ searchTerm: searchTerm }));
     // }
   }
-  
+
   function handleSearchBySymptomsClick() {
     let searchTerm = searchBySymptomsRef.current.value;
 
     // if (searchTerm !== "") {
-      dispatch(filterPatientsBySymptoms({ searchTerm: searchTerm }));
+    dispatch(filterPatientsBySymptoms({ searchTerm: searchTerm }));
     // }
   }
-  
+
   function handleSearchByMedicineClick() {
     let searchTerm = searchByMedicineRef.current.value;
 
     // if (searchTerm !== "") {
-      dispatch(filterPatientsByMedicines({ searchTerm: searchTerm }));
+    dispatch(filterPatientsByMedicines({ searchTerm: searchTerm }));
     // }
   }
+
   return (
-    <div>
-      <div>
-        <label>Search By Name: </label>
-        <input type="text" ref={searchByNameRef} />
-        <button onClick={handleSearchByNameClick}>Enter</button>
-      </div>
-      <div>
-        <label>Search By Symptoms: </label>
-        <input type="text" ref={searchBySymptomsRef} />
-        <button onClick={handleSearchBySymptomsClick}>Enter</button>
-      </div>
-      <div>
-        <label>Search By Medicine: </label>
-        <input type="text" ref={searchByMedicineRef} />
-        <button onClick={handleSearchByMedicineClick}>Enter</button>
-      </div>
-    </div>
+    <Space style={{padding: "0.5em", width: "100%", backgroundColor: "##e1e2e5"}}>
+      <Search 
+        placeholder="Search By Name"
+        allowClear
+        enterButton="Search"
+        onSearch={handleSearchByNameClick}
+      />
+      <Search
+        placeholder="Search By Symptoms"
+        allowClear
+        enterButton="Search"
+        // size="small"
+        onSearch={handleSearchBySymptomsClick}
+      />
+      <Search
+        placeholder="Search By Medicine"
+        allowClear
+        enterButton="Search"
+        // size="small"
+        onSearch={handleSearchByMedicineClick}
+      />
+    </Space>
   );
 }
 
